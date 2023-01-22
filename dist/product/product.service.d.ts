@@ -1,0 +1,31 @@
+import { statusEnum } from './status_enum';
+import { ObjectID } from 'typeorm';
+import { ProductMedia } from './../product_media/product_media';
+import { ProductMediaDto } from './../product_media/product_media.dto';
+import { Product } from './product';
+import { Repository } from 'typeorm';
+import { ProductDto } from './product.dto';
+import { CategoryEntity } from 'src/category/models/category.entity';
+export declare class ProductService {
+    private productRepository;
+    private productMediaRepository;
+    private readonly categoryRepository;
+    mongoose: any;
+    constructor(productRepository: Repository<Product>, productMediaRepository: Repository<ProductMedia>, categoryRepository: Repository<CategoryEntity>);
+    create(product: ProductDto, productMedia: ProductMediaDto): Promise<Product>;
+    getIdProductMedia(id: ObjectID): Promise<ObjectID>;
+    update(id: ObjectID, product: ProductDto, productMedia: ProductMediaDto): Promise<Product>;
+    updateStatus(id: ObjectID, product: ProductDto, status: statusEnum): Promise<Product>;
+    publicationProduct(product: ProductDto, productMedia: ProductMediaDto, status: statusEnum): Promise<Product>;
+    updatePublicationProduct(id: ObjectID, product: ProductDto, productMedia: ProductMediaDto, status: string): Promise<Product>;
+    setIntRandomArray(): Promise<any[]>;
+    getAllValidProducts(): Promise<Product[]>;
+    getAllCategories(): Promise<CategoryEntity[]>;
+    countParentCategories(categoryId: string): Promise<number>;
+    getParentCategoryId(categoryId: string): Promise<string>;
+    getProductsWhereCategory(categoryId: string): Promise<Product[]>;
+    getLastPublishedProducts(): Promise<any[]>;
+    getRandomPublishedProducts(): Promise<any[]>;
+    getRecentVisitedProducts(categoryId: any): Promise<any[]>;
+    getProductMedias(_id: any): Promise<ProductMedia[]>;
+}
